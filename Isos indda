@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ISOs INDDA UNALM</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#f4f5f3;color:#2a3628;min-height:100vh;padding:40px 24px}
+h1{font-family:'Playfair Display',serif;font-size:28px;color:#1a3028;text-align:center;margin-bottom:6px}
+.subtitle{text-align:center;color:#8fa68a;font-size:13px;font-family:'DM Mono',monospace;letter-spacing:2px;text-transform:uppercase;margin-bottom:36px}
+
+/* INTRO */
+.intro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:36px}
+.iso-card{background:#fff;border:1px solid #e8ebe6;border-radius:14px;padding:22px 20px;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.iso-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(26,48,40,.10)}
+.iso-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.iso-card.green::before{background:linear-gradient(90deg,#2d5a3d,#4e9164)}
+.iso-card.gold::before{background:linear-gradient(90deg,#c9a84c,#e2c97e)}
+.iso-card.teal::before{background:linear-gradient(90deg,#2e7d78,#4aada7)}
+.iso-badge{display:inline-block;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:1.5px;padding:4px 10px;border-radius:4px;margin-bottom:12px}
+.iso-card.green .iso-badge{background:#eef5f0;color:#2d5a3d}
+.iso-card.gold .iso-badge{background:#faf5e8;color:#8a6f2e}
+.iso-card.teal .iso-badge{background:#e8f4f3;color:#2e7d78}
+.iso-name{font-family:'Playfair Display',serif;font-size:17px;color:#1a3028;margin-bottom:8px}
+.iso-desc{font-size:13px;color:#4f6250;line-height:1.65}
+.iso-who{margin-top:12px;font-size:11.5px;font-family:'DM Mono',monospace;color:#8fa68a;border-top:1px solid #e8ebe6;padding-top:10px}
+
+/* COMPARISON TABLE */
+.section-title{font-family:'Playfair Display',serif;font-size:20px;color:#1a3028;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section-title::after{content:'';flex:1;height:1px;background:#e8ebe6}
+
+.compare-wrap{overflow-x:auto;margin-bottom:36px}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 1px 6px rgba(26,48,40,.06)}
+thead tr{background:#1a3028}
+th{padding:14px 18px;text-align:left;font-size:12px;font-weight:600;color:#fff;font-family:'DM Mono',monospace;letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+th:first-child{color:#e2c97e}
+tbody tr{border-bottom:1px solid #f4f5f3;transition:background .15s}
+tbody tr:hover{background:#f7f8f6}
+tbody tr:last-child{border-bottom:none}
+td{padding:14px 18px;font-size:13.5px;color:#2a3628;vertical-align:top}
+td:first-child{font-weight:600;color:#1a3028;white-space:nowrap}
+.company-col{display:flex;flex-direction:column;gap:2px}
+.co-name{font-weight:600;font-size:13px;color:#1a3028}
+.co-type{font-size:11px;color:#8fa68a;font-family:'DM Mono',monospace}
+.tag-pill{display:inline-block;font-size:11px;font-family:'DM Mono',monospace;padding:3px 8px;border-radius:4px;margin:2px 2px 2px 0;font-weight:500}
+.tag-green{background:#eef5f0;color:#2d5a3d;border:1px solid #c8e0ce}
+.tag-gold{background:#faf5e8;color:#8a6f2e;border:1px solid #e8d9a0}
+.tag-teal{background:#e8f4f3;color:#2e7d78;border:1px solid #b0d8d5}
+.tag-gray{background:#f4f5f3;color:#4f6250;border:1px solid #d1d8cc}
+.check{color:#27ae60;font-size:15px}
+.cross{color:#c0392b;font-size:15px}
+.partial{color:#b07d28;font-size:15px}
+
+/* INDDA BLOCK */
+.indda-block{background:#1a3028;border-radius:14px;padding:28px 28px;margin-bottom:36px;color:#fff}
+.indda-block h3{font-family:'Playfair Display',serif;font-size:20px;color:#e2c97e;margin-bottom:20px}
+.indda-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.indda-iso{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:10px;padding:18px}
+.indda-iso-title{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:#c9a84c;margin-bottom:8px;text-transform:uppercase}
+.indda-iso-name{font-size:15px;font-weight:600;color:#fff;margin-bottom:8px}
+.indda-iso-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6}
+.indda-kpis{margin-top:12px;display:flex;flex-direction:column;gap:5px}
+.kpi-row{display:flex;align-items:flex-start;gap:7px;font-size:12.5px;color:rgba(255,255,255,.75)}
+.kpi-row::before{content:'▸';color:#c9a84c;flex-shrink:0;margin-top:1px}
+
+/* INDICATORS */
+.indicators-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:36px}
+.ind-block{background:#fff;border:1px solid #e8ebe6;border-radius:14px;padding:22px}
+.ind-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #f4f5f3}
+.ind-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.ind-icon.pos{background:#eef5f0;color:#27ae60}
+.ind-icon.neg{background:#fdf2f2;color:#c0392b}
+.ind-title{font-size:14px;font-weight:600;color:#1a3028}
+.ind-sub{font-size:11px;color:#8fa68a;font-family:'DM Mono',monospace}
+.ind-list{list-style:none;display:flex;flex-direction:column;gap:9px}
+.ind-list li{display:flex;flex-direction:column;gap:2px;padding-bottom:9px;border-bottom:1px solid #f4f5f3}
+.ind-list li:last-child{border-bottom:none;padding-bottom:0}
+.ind-name{font-size:13.5px;font-weight:500;color:#2a3628}
+.ind-formula{font-size:11.5px;font-family:'DM Mono',monospace;color:#8fa68a;margin-top:2px}
+.ind-iso-ref{font-size:11px;color:#c9a84c;font-family:'DM Mono',monospace;margin-top:2px}
+
+.footer-note{text-align:center;font-size:12px;color:#8fa68a;font-family:'DM Mono',monospace;margin-top:8px;letter-spacing:1px}
+</style>
+</head>
+<body>
+
+<h1>Normas ISO Aplicables al INDDA UNALM</h1>
+<p class="subtitle">Comparativa con empresas agroindustriales de referencia · 2025</p>
+
+<!-- ── ISO CARDS ── -->
+<div class="intro-grid">
+  <div class="iso-card green">
+    <div class="iso-badge">ISO 9001:2015</div>
+    <div class="iso-name">Gestión de Calidad</div>
+    <p class="iso-desc">Marco general para controlar y mejorar la calidad de procesos, productos y servicios en cualquier organización.</p>
+    <div class="iso-who">📌 Base de cualquier sistema de gestión</div>
+  </div>
+  <div class="iso-card gold">
+    <div class="iso-badge">ISO 22000:2018</div>
+    <div class="iso-name">Inocuidad Alimentaria</div>
+    <p class="iso-desc">Garantiza la seguridad del alimento en toda la cadena: desde insumos, producción, maquila, almacenaje hasta entrega.</p>
+    <div class="iso-who">📌 Obligatoria en exportaciones a EE.UU. y UE</div>
+  </div>
+  <div class="iso-card teal">
+    <div class="iso-badge">ISO 14001:2015</div>
+    <div class="iso-name">Gestión Ambiental</div>
+    <p class="iso-desc">Control del impacto ambiental de los procesos: uso de agua, energía, residuos y emisiones en planta piloto.</p>
+    <div class="iso-who">📌 Complementa la sostenibilidad del INDDA</div>
+  </div>
+</div>
+
+<!-- ── COMPARISON TABLE ── -->
+<div class="section-title">Comparativa: INDDA vs Empresas de Referencia</div>
+<div class="compare-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Empresa</th>
+      <th>Rubro</th>
+      <th>ISO 9001</th>
+      <th>ISO 22000</th>
+      <th>ISO 14001</th>
+      <th>Indicadores clave que usan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <div class="company-col">
+          <span class="co-name">Alicorp S.A.A.</span>
+          <span class="co-type">Líder alimentos Perú</span>
+        </div>
+      </td>
+      <td>
+        <span class="tag-pill tag-gray">Harinas</span>
+        <span class="tag-pill tag-gray">Aceites</span>
+        <span class="tag-pill tag-gray">Bebidas</span>
+      </td>
+      <td><span class="check">✔</span> desde 2015</td>
+      <td><span class="check">✔</span> 2018 (renovada)</td>
+      <td><span class="check">✔</span> desde 2015</td>
+      <td>% lotes aprobados, rendimiento de línea, % merma, tiempo de ciclo</td>
+    </tr>
+    <tr>
+      <td>
+        <div class="company-col">
+          <span class="co-name">Gloria S.A.</span>
+          <span class="co-type">Grupo Gloria, lácteos</span>
+        </div>
+      </td>
+      <td>
+        <span class="tag-pill tag-gray">Lácteos</span>
+        <span class="tag-pill tag-gray">Bebidas</span>
+      </td>
+      <td><span class="check">✔</span> desde 2002</td>
+      <td><span class="check">✔</span> única empresa láctea Perú</td>
+      <td><span class="check">✔</span></td>
+      <td>12 planes HACCP, tasa de rechazo, inocuidad, % defectuoso por turno</td>
+    </tr>
+    <tr>
+      <td>
+        <div class="company-col">
+          <span class="co-name">Casa Grande S.A.A.</span>
+          <span class="co-type">Grupo Gloria, azucarera</span>
+        </div>
+      </td>
+      <td>
+        <span class="tag-pill tag-gray">Azúcar</span>
+        <span class="tag-pill tag-gray">Agroindustria</span>
+      </td>
+      <td><span class="check">✔</span></td>
+      <td><span class="check">✔</span></td>
+      <td><span class="check">✔</span></td>
+      <td>Eficiencia por subproceso, indicadores PHVA, reclamos de clientes</td>
+    </tr>
+    <tr>
+      <td>
+        <div class="company-col">
+          <span class="co-name">INDDA UNALM</span>
+          <span class="co-type">Instituto UNALM (actual)</span>
+        </div>
+      </td>
+      <td>
+        <span class="tag-pill tag-green">Harinas</span>
+        <span class="tag-pill tag-green">Bebidas</span>
+        <span class="tag-pill tag-green">Snacks</span>
+        <span class="tag-pill tag-green">Lácteos</span>
+      </td>
+      <td><span class="partial">⚠</span> En proceso</td>
+      <td><span class="partial">⚠</span> En proceso</td>
+      <td><span class="cross">✗</span> Pendiente</td>
+      <td>% defectuoso, tasa aprobación, stock insumos, ticket promedio</td>
+    </tr>
+    <tr style="background:#faf9f2">
+      <td>
+        <div class="company-col">
+          <span class="co-name">INDDA UNALM</span>
+          <span class="co-type">🎯 Meta propuesta</span>
+        </div>
+      </td>
+      <td>
+        <span class="tag-pill tag-gold">Harinas</span>
+        <span class="tag-pill tag-gold">Bebidas</span>
+        <span class="tag-pill tag-gold">Snacks</span>
+        <span class="tag-pill tag-gold">Lácteos</span>
+      </td>
+      <td><span class="check">✔</span> Implementar</td>
+      <td><span class="check">✔</span> Implementar</td>
+      <td><span class="check">✔</span> Futuro</td>
+      <td>Dashboard con KPIs reales, alertas de calidad, trazabilidad de lotes</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ── INDDA ESPECÍFICO ── -->
+<div class="indda-block">
+  <h3>¿Qué significan los ISOs para el INDDA concretamente?</h3>
+  <div class="indda-grid">
+    <div class="indda-iso">
+      <div class="indda-iso-title">ISO 9001:2015</div>
+      <div class="indda-iso-name">Calidad de procesos operativos</div>
+      <div class="indda-iso-desc">Aplica a todo el ciclo de producción y maquila del INDDA: desde que el cliente trae su fórmula hasta que recibe el producto.</div>
+      <div class="indda-kpis">
+        <div class="kpi-row">% de lotes aprobados en primera revisión</div>
+        <div class="kpi-row">Tiempo promedio de ciclo producción → entrega</div>
+        <div class="kpi-row">Tasa de rechazo por responsable / turno</div>
+        <div class="kpi-row">N° de no conformidades por línea de producto</div>
+      </div>
+    </div>
+    <div class="indda-iso">
+      <div class="indda-iso-title">ISO 22000:2018</div>
+      <div class="indda-iso-name">Inocuidad alimentaria en planta piloto</div>
+      <div class="indda-iso-desc">Aplica porque el INDDA produce alimentos reales (néctar, yogurt, barras, harinas) que se consumen. Exige HACCP y trazabilidad.</div>
+      <div class="indda-kpis">
+        <div class="kpi-row">% de lotes con control de calidad documentado</div>
+        <div class="kpi-row">% de insumos con fecha de ingreso registrada</div>
+        <div class="kpi-row">Tasa de inspección: defectos detectados / inspeccionados</div>
+        <div class="kpi-row">% de observaciones "Exceso de acidez" o "Textura irregular"</div>
+      </div>
+    </div>
+    <div class="indda-iso">
+      <div class="indda-iso-title">HACCP (complemento ISO 22000)</div>
+      <div class="indda-iso-name">Análisis de Peligros y Puntos Críticos</div>
+      <div class="indda-iso-desc">Como hizo Gloria con 12 planes HACCP, el INDDA puede aplicarlo por cada línea: bebidas, harinas, lácteos, snacks.</div>
+      <div class="indda-kpis">
+        <div class="kpi-row">Puntos críticos controlados por línea de producción</div>
+        <div class="kpi-row">Alertas de reproceso por lote (ya en tu BD)</div>
+        <div class="kpi-row">% de lotes "En revisión" que pasan a Rechazado</div>
+      </div>
+    </div>
+    <div class="indda-iso">
+      <div class="indda-iso-title">ISO 14001:2015 (futuro)</div>
+      <div class="indda-iso-name">Impacto ambiental de la producción</div>
+      <div class="indda-iso-desc">El INDDA usa insumos agrícolas peruanos (quinua, kiwicha, cacao). La sostenibilidad del proceso es una ventaja diferencial.</div>
+      <div class="indda-kpis">
+        <div class="kpi-row">Kg de materia prima usada vs. merma generada</div>
+        <div class="kpi-row">Eficiencia de uso: cantidad usada / cantidad producida</div>
+        <div class="kpi-row">Stock disponible vs. consumo real por lote</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── INDICADORES REALES PARA EL DASHBOARD ── -->
+<div class="section-title">Indicadores Reales para tu Dashboard (extraídos de tu BD)</div>
+<div class="indicators-grid">
+  <div class="ind-block">
+    <div class="ind-header">
+      <div class="ind-icon pos">↑</div>
+      <div>
+        <div class="ind-title">Indicadores POSITIVOS</div>
+        <div class="ind-sub">ISO 9001 · ISO 22000</div>
+      </div>
+    </div>
+    <ul class="ind-list">
+      <li>
+        <span class="ind-name">Tasa de Aprobación de Lotes</span>
+        <span class="ind-formula">lotes_aprobados / total_lotes × 100</span>
+        <span class="ind-iso-ref">→ ISO 9001 · campo: estado_lote</span>
+      </li>
+      <li>
+        <span class="ind-name">Eficiencia de Producción</span>
+        <span class="ind-formula">(cantidad_producida - cantidad_defectuosa) / cantidad_producida × 100</span>
+        <span class="ind-iso-ref">→ ISO 9001 · campo: pct_defectuoso</span>
+      </li>
+      <li>
+        <span class="ind-name">Ticket Promedio por Línea</span>
+        <span class="ind-formula">precio_venta × cantidad_producida / n_lotes</span>
+        <span class="ind-iso-ref">→ KPI gerencial · tablas: Producto + Lote</span>
+      </li>
+      <li>
+        <span class="ind-name">% Lotes Inspeccionados</span>
+        <span class="ind-formula">cod_lote con control / total_lotes × 100</span>
+        <span class="ind-iso-ref">→ ISO 22000 · tabla: Control_Calidad</span>
+      </li>
+      <li>
+        <span class="ind-name">Stock Disponible por Insumo</span>
+        <span class="ind-formula">stock_disponible actual en Materia_Prima</span>
+        <span class="ind-iso-ref">→ ISO 22000 · tabla: Materia_Prima</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="ind-block">
+    <div class="ind-header">
+      <div class="ind-icon neg">↓</div>
+      <div>
+        <div class="ind-title">Indicadores NEGATIVOS</div>
+        <div class="ind-sub">Lo que la profesora llamó "información sincera"</div>
+      </div>
+    </div>
+    <ul class="ind-list">
+      <li>
+        <span class="ind-name">% de Defectos por Producto</span>
+        <span class="ind-formula">sum(cantidad_defectuosa) / sum(cantidad_producida) × 100</span>
+        <span class="ind-iso-ref">→ ISO 9001 · campo: pct_defectuoso por cod_producto</span>
+      </li>
+      <li>
+        <span class="ind-name">Tasa de Rechazo por Inspector</span>
+        <span class="ind-formula">rechazados_por_inspector / total_inspeccionado × 100</span>
+        <span class="ind-iso-ref">→ ISO 22000 · campo: inspector + resultado</span>
+      </li>
+      <li>
+        <span class="ind-name">Lotes "En Revisión" sin resolver</span>
+        <span class="ind-formula">count(estado_lote == "En revision")</span>
+        <span class="ind-iso-ref">→ KPI de riesgo · tabla: Lote_Produccion</span>
+      </li>
+      <li>
+        <span class="ind-name">Merma por Lote (pérdida real)</span>
+        <span class="ind-formula">cantidad_defectuosa × precio_venta del producto</span>
+        <span class="ind-iso-ref">→ ISO 9001 · cruce Lote + Producto</span>
+      </li>
+      <li>
+        <span class="ind-name">Insumos con Stock Crítico</span>
+        <span class="ind-formula">stock_disponible menor al uso promedio en 30 días</span>
+        <span class="ind-iso-ref">→ ISO 22000 · cruce Materia_Prima + Uso_Insumo</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<p class="footer-note">INDDA UNALM · Sistema de Información Gerencial · 2025-I — Referencia: Gloria S.A., Alicorp S.A.A., Casa Grande S.A.A.</p>
+
+</body>
+</html>
