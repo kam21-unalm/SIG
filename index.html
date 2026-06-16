@@ -259,41 +259,74 @@
 
       <!-- ── POWER BI DASHBOARD ── -->
       <section class="powerbi-section">
-        <div class="powerbi-header">
-          <div class="powerbi-header-left">
-            <i class="fa-solid fa-chart-column"></i>
-            <div>
-              <h3>Dashboard Interactivo — Power BI</h3>
-              <p>Producción · Calidad · Inventario · BD INDDA UNALM 2025</p>
+        <div class="powerbi-card">
+
+          <!-- Header -->
+          <div class="powerbi-header">
+            <div class="powerbi-header-left">
+              <div class="pbi-header-icon">
+                <i class="fa-solid fa-chart-column"></i>
+              </div>
+              <div>
+                <h3>Dashboard Interactivo — Power BI</h3>
+                <p>Producción · Calidad · Inventario · BD INDDA UNALM 2025</p>
+              </div>
+            </div>
+            <div class="powerbi-header-right">
+              <div class="pbi-status-dot"></div>
+              <span class="pbi-status-text">En línea</span>
+              <a href="https://app.powerbi.com/links/aYmSMuEUfY?ctid=d817549d-db34-487b-9c4e-6bb9fb2f7691&pbi_source=linkShare"
+                 target="_blank" class="btn-powerbi">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                Abrir en Power BI
+              </a>
             </div>
           </div>
-          <a href="https://app.powerbi.com/links/aYmSMuEUfY?ctid=d817549d-db34-487b-9c4e-6bb9fb2f7691&pbi_source=linkShare"
-             target="_blank" class="btn-powerbi">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            Abrir en Power BI
-          </a>
-        </div>
-        <div class="powerbi-embed-wrap">
-          <div class="powerbi-pages">
-            <button class="pbi-page active" onclick="setPBIPage(this)"><i class="fa-solid fa-chart-pie"></i> Resumen General</button>
-            <button class="pbi-page" onclick="setPBIPage(this)"><i class="fa-solid fa-industry"></i> Producción</button>
-            <button class="pbi-page" onclick="setPBIPage(this)"><i class="fa-solid fa-flask-vial"></i> Calidad</button>
-            <button class="pbi-page" onclick="setPBIPage(this)"><i class="fa-solid fa-boxes-stacked"></i> Inventario</button>
+
+          <!-- Pestañas -->
+          <div class="powerbi-tabs">
+            <button class="pbi-tab active" onclick="setPBIPage(this)">
+              <i class="fa-solid fa-chart-pie"></i> Resumen General
+            </button>
+            <button class="pbi-tab" onclick="setPBIPage(this)">
+              <i class="fa-solid fa-industry"></i> Producción
+            </button>
+            <button class="pbi-tab" onclick="setPBIPage(this)">
+              <i class="fa-solid fa-flask-vial"></i> Calidad
+            </button>
+            <button class="pbi-tab" onclick="setPBIPage(this)">
+              <i class="fa-solid fa-boxes-stacked"></i> Inventario
+            </button>
           </div>
+
+          <!-- Frame container -->
           <div class="powerbi-frame-container">
             <div class="powerbi-overlay" id="pbi-overlay">
               <div class="pbi-overlay-content">
-                <div class="pbi-logo"><i class="fa-solid fa-chart-column"></i></div>
+                <div class="pbi-logo">
+                  <i class="fa-solid fa-chart-column"></i>
+                </div>
                 <h3>Dashboard INDDA UNALM</h3>
-                <p>Visualización interactiva de producción, calidad e inventario</p>
+                <p>Haz clic para cargar la visualización interactiva</p>
                 <button class="btn-load-pbi" onclick="loadPBI()">
-                  <i class="fa-solid fa-play"></i> Cargar Dashboard
+                  <i class="fa-solid fa-play"></i>
+                  Cargar Dashboard
                 </button>
+                <span class="pbi-hint">
+                  <i class="fa-solid fa-circle-info"></i>
+                  Requiere sesión activa en Power BI
+                </span>
               </div>
             </div>
-            <iframe id="pbi-frame" src="" frameborder="0" allowFullScreen="true"
-              style="display:none; width:100%; height:100%; border:none;"></iframe>
+            <iframe
+              id="pbi-frame"
+              src=""
+              frameborder="0"
+              allowFullScreen="true"
+              style="display:none; width:100%; height:100%; border:none;">
+            </iframe>
           </div>
+
         </div>
       </section>
 
