@@ -937,3 +937,184 @@ a { text-decoration: none; color: inherit; }
   .sidebar { width: var(--sidebar-collapsed); }
   .sb-brand-text, .su-info, .nav-item span, .nav-section-label { display: none; }
 }
+
+/* ══════════════════════════════════════════════
+   POWER BI SECTION
+══════════════════════════════════════════════ */
+.powerbi-section {
+  padding: 18px 28px 0;
+  animation: fadeUp 0.5s 0.2s ease both;
+}
+
+.powerbi-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  border: 1px solid var(--gray-100);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  padding: 16px 22px;
+  border-bottom: none;
+}
+
+.powerbi-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.powerbi-header-left > i {
+  font-size: 24px;
+  color: var(--green-mid);
+}
+
+.powerbi-header-left h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--green-dark);
+  margin-bottom: 2px;
+}
+
+.powerbi-header-left p {
+  font-size: 12px;
+  color: var(--gray-400);
+  font-family: var(--font-mono);
+}
+
+.btn-powerbi {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  background: linear-gradient(135deg, var(--green-mid), var(--green-dark));
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+  box-shadow: 0 3px 10px rgba(26,48,40,0.25);
+}
+
+.btn-powerbi:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 16px rgba(26,48,40,0.35);
+}
+
+.powerbi-embed-wrap {
+  background: var(--white);
+  border: 1px solid var(--gray-100);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+
+.powerbi-pages {
+  display: flex;
+  gap: 2px;
+  padding: 10px 16px;
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.pbi-page {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.pbi-page:hover {
+  background: var(--white);
+  border-color: var(--gray-200);
+  color: var(--green-dark);
+}
+
+.pbi-page.active {
+  background: var(--green-dark);
+  color: var(--gold-light);
+  border-color: var(--green-dark);
+}
+
+.powerbi-frame-container {
+  position: relative;
+  width: 100%;
+  height: 600px;
+}
+
+/* Overlay de carga */
+.powerbi-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--green-dark) 0%, #0f2018 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.pbi-overlay-content {
+  text-align: center;
+  color: var(--white);
+}
+
+.pbi-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: var(--white);
+  margin: 0 auto 20px;
+  box-shadow: var(--shadow-gold);
+}
+
+.pbi-overlay-content h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.pbi-overlay-content p {
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 28px;
+}
+
+.btn-load-pbi {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 28px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-gold);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+
+.btn-load-pbi:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201,168,76,0.4);
+}
