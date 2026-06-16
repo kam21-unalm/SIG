@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>INDDA UNALM · Sistema de Gestión Agroindustrial</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- ══════════════════════════ LOGIN ══════════════════════════ -->
+<div id="login-screen" class="login-screen">
+  <div class="login-bg"><div class="bg-mesh"></div><div class="bg-grid"></div></div>
+  <div class="login-wrapper">
+    <div class="login-left">
+      <div class="brand-block">
+        <div class="logo-icon"><i class="fa-solid fa-seedling"></i></div>
+        <h1 class="brand-name">INDDA</h1>
+        <p class="brand-sub">UNALM</p>
+        <div class="brand-divider"></div>
+        <p class="brand-desc">Instituto de Investigación y Desarrollo<br/>de Diseño Agroindustrial</p>
+        <div class="brand-tags">
+          <span class="tag">Producción</span><span class="tag">Maquila</span>
+          <span class="tag">Calidad</span><span class="tag">Inventario</span>
+        </div>
+      </div>
+      <div class="login-footer-text">Universidad Nacional Agraria La Molina · 2025</div>
+    </div>
+    <div class="login-right">
+      <div class="login-card">
+        <div class="login-card-header">
+          <p class="login-welcome">Bienvenido al</p>
+          <h2 class="login-title">Sistema de Gestión</h2>
+          <p class="login-subtitle">Ingrese sus credenciales institucionales para continuar</p>
+        </div>
+        <form class="login-form" onsubmit="return false;">
+          <div class="form-group">
+            <label><i class="fa-regular fa-user"></i> Usuario</label>
+            <input type="text" id="username" placeholder="nombre de usuario" autocomplete="username"/>
+          </div>
+          <div class="form-group">
+            <label><i class="fa-regular fa-lock"></i> Contraseña</label>
+            <div class="password-wrapper">
+              <input type="password" id="password" placeholder="••••••••" autocomplete="current-password"/>
+              <button type="button" class="toggle-pw" onclick="togglePassword()">
+                <i class="fa-regular fa-eye" id="pw-eye"></i>
+              </button>
+            </div>
+          </div>
+          <div id="login-error" class="login-error hidden">
+            <i class="fa-solid fa-circle-exclamation"></i> Credenciales incorrectas.
+          </div>
+          <button type="submit" class="btn-login" id="btn-login" onclick="attemptLogin()">
+            <span class="btn-text">Ingresar al Sistema</span>
+            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+          </button>
+        </form>
+        <div class="login-note"><i class="fa-solid fa-shield-halved"></i> Acceso restringido — Solo personal autorizado</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ DASHBOARD ══════════════════════════ -->
+<div id="dashboard-screen" class="dashboard-screen hidden">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="sb-logo-icon"><i class="fa-solid fa-seedling"></i></div>
+      <div class="sb-brand-text"><span class="sb-name">INDDA</span><span class="sb-sub">UNALM</span></div>
+      <button class="sidebar-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Principal</div>
+      <a href="#" class="nav-item active" onclick="setActive(this,'Panel de Control General','fa-solid fa-chart-pie')">
+        <i class="fa-solid fa-chart-pie"></i><span>Dashboard</span>
+      </a>
+      <a href="#" class="nav-item" onclick="setActive(this,'Gestión de Producción','fa-solid fa-industry')">
+        <i class="fa-solid fa-industry"></i><span>Producción</span>
+      </a>
+      <a href="#" class="nav-item" onclick="setActive(this,'Control de Inventario','fa-solid fa-boxes-stacked')">
+        <i class="fa-solid fa-boxes-stacked"></i><span>Inventario</span>
+      </a>
+      <div class="nav-section-label">Operaciones</div>
+      <a href="#" class="nav-item" onclick="setActive(this,'Control de Calidad','fa-solid fa-flask-vial')">
+        <i class="fa-solid fa-flask-vial"></i><span>Calidad</span>
+      </a>
+      <a href="#" class="nav-item" onclick="setActive(this,'Servicios de Maquila','fa-solid fa-truck')">
+        <i class="fa-solid fa-truck"></i><span>Maquila</span>
+      </a>
+      <a href="#" class="nav-item" onclick="setActive(this,'Órdenes de Trabajo','fa-solid fa-clipboard-list')">
+        <i class="fa-solid fa-clipboard-list"></i><span>Órdenes</span>
+      </a>
+      <div class="nav-section-label">Administración</div>
+      <a href="#" class="nav-item" onclick="setActive(this,'Gestión de Personal','fa-solid fa-users')">
+        <i class="fa-solid fa-users"></i><span>Personal</span>
+      </a>
+      <a href="#" class="nav-item" onclick="setActive(this,'Reportes y Análisis','fa-solid fa-file-chart-column')">
+        <i class="fa-solid fa-file-chart-column"></i><span>Reportes</span>
+      </a>
+      <a href="#" class="nav-item" onclick="setActive(this,'Configuración del Sistema','fa-solid fa-gear')">
+        <i class="fa-solid fa-gear"></i><span>Configuración</span>
+      </a>
+    </nav>
+    <div class="sidebar-user">
+      <div class="su-avatar">A</div>
+      <div class="su-info"><span class="su-name">Administrador</span><span class="su-role">Acceso completo</span></div>
+      <button class="su-logout" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i></button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content" id="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="page-breadcrumb" id="breadcrumb"><i class="fa-solid fa-chart-pie"></i><span>Dashboard</span></div>
+        <h2 class="page-title" id="page-title">Panel de Control General</h2>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-date" id="topbar-date"></div>
+        <button class="topbar-notif"><i class="fa-regular fa-bell"></i><span class="notif-dot"></span></button>
+        <div class="topbar-avatar">A</div>
+      </div>
+    </header>
+
+    <!-- KPI CARDS -->
+    <section class="kpi-section">
+      <div class="kpi-card" data-delay="0">
+        <div class="kpi-icon kpi-green"><i class="fa-solid fa-industry"></i></div>
+        <div class="kpi-body">
+          <p class="kpi-label">Lotes Producidos</p>
+          <h3 class="kpi-value" id="kpi-lotes">300</h3>
+          <span class="kpi-badge up"><i class="fa-solid fa-arrow-trend-up"></i> 75% aprobados</span>
+        </div>
+      </div>
+      <div class="kpi-card" data-delay="100">
+        <div class="kpi-icon kpi-gold"><i class="fa-solid fa-circle-dollar-to-slot"></i></div>
+        <div class="kpi-body">
+          <p class="kpi-label">Pérdida por Defectos</p>
+          <h3 class="kpi-value" id="kpi-perdida">S/ 5,891</h3>
+          <span class="kpi-badge down"><i class="fa-solid fa-arrow-trend-down"></i> merma total en soles</span>
+        </div>
+      </div>
+      <div class="kpi-card" data-delay="200">
+        <div class="kpi-icon kpi-teal"><i class="fa-solid fa-flask-vial"></i></div>
+        <div class="kpi-body">
+          <p class="kpi-label">% Defectuoso Promedio</p>
+          <h3 class="kpi-value" id="kpi-pct">3.75%</h3>
+          <span class="kpi-badge down"><i class="fa-solid fa-arrow-trend-down"></i> índice de calidad</span>
+        </div>
+      </div>
+      <div class="kpi-card" data-delay="300">
+        <div class="kpi-icon kpi-amber"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <div class="kpi-body">
+          <p class="kpi-label">Lotes Rechazados</p>
+          <h3 class="kpi-value" id="kpi-rech">33</h3>
+          <span class="kpi-badge down"><i class="fa-solid fa-arrow-trend-down"></i> 11% del total</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ANALYTICS SECTION -->
+    <section class="analytics-section">
+
+      <!-- Header con filtros y botón PBI -->
+      <div class="analytics-header">
+        <div class="analytics-header-left">
+          <div class="analytics-icon"><i class="fa-solid fa-chart-column"></i></div>
+          <div>
+            <h3>Análisis de Producción INDDA UNALM</h3>
+            <p>BD 2025 · 300 lotes · 2,000 inspecciones · Umbral atípico IQR = 6.11%</p>
+          </div>
+        </div>
+        <div class="analytics-header-right">
+          <div class="filter-group">
+            <label><i class="fa-solid fa-filter"></i> Filtrar por estado</label>
+            <div class="filter-pills" id="filter-estado">
+              <button class="fpill active" data-val="todos" onclick="toggleFiltro('todos',this)">Todos</button>
+              <button class="fpill green" data-val="Aprobado" onclick="toggleFiltro('Aprobado',this)">✓ Aprobado</button>
+              <button class="fpill amber" data-val="En revision" onclick="toggleFiltro('En revision',this)">⏳ En revisión</button>
+              <button class="fpill red" data-val="Rechazado" onclick="toggleFiltro('Rechazado',this)">✗ Rechazado</button>
+            </div>
+          </div>
+          <a href="https://app.powerbi.com/groups/me/reports/0857302e-f281-4fc9-bd9b-67bca8e9179d?ctid=d817549d-db34-487b-9c4e-6bb9fb2f7691&pbi_source=linkShare"
+             target="_blank" class="btn-powerbi">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver en Power BI
+          </a>
+        </div>
+      </div>
+
+      <!-- Alertas -->
+      <div id="alertas-container"></div>
+
+      <!-- Tabs -->
+      <div class="analytics-tabs">
+        <button class="atab active" onclick="setTab('resumen',this)"><i class="fa-solid fa-chart-pie"></i> Resumen</button>
+        <button class="atab" onclick="setTab('produccion',this)"><i class="fa-solid fa-industry"></i> Producción</button>
+        <button class="atab" onclick="setTab('calidad',this)"><i class="fa-solid fa-flask-vial"></i> Calidad</button>
+        <button class="atab" onclick="setTab('atipicos',this)"><i class="fa-solid fa-chart-scatter"></i> Atípicos</button>
+        <button class="atab" onclick="setTab('inventario',this)"><i class="fa-solid fa-boxes-stacked"></i> Inventario</button>
+        <button class="atab" onclick="setTab('responsable',this)"><i class="fa-solid fa-users"></i> Responsables</button>
+        <button class="atab" onclick="setTab('datos',this)"><i class="fa-solid fa-database"></i> Datos en vivo</button>
+      </div>
+
+      <!-- TAB: RESUMEN -->
+      <div class="tab-content active" id="tab-resumen">
+        <div class="charts-grid-2">
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <h4><i class="fa-solid fa-chart-bar"></i> Lotes por Línea de Producción</h4>
+              <span class="chart-badge">300 lotes totales</span>
+            </div>
+            <canvas id="chart-lineas" height="230"></canvas>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <h4><i class="fa-solid fa-chart-pie"></i> Distribución de Estados</h4>
+              <span class="chart-badge">% del total</span>
+            </div>
+            <canvas id="chart-estados" height="230"></canvas>
+          </div>
+        </div>
+        <div class="conclusiones-card">
+          <div class="chart-card-header">
+            <h4><i class="fa-solid fa-brain"></i> Conclusiones Estadísticas</h4>
+            <span class="chart-badge" id="badge-filtro">Todos los estados</span>
+          </div>
+          <div id="conclusiones-box"></div>
+        </div>
+      </div>
+
+      <!-- TAB: PRODUCCIÓN -->
+      <div class="tab-content" id="tab-produccion">
+        <div class="chart-card full">
+          <div class="chart-card-header">
+            <h4><i class="fa-solid fa-chart-bar"></i> Producción Mensual por Línea 2025 (apilado)</h4>
+            <span class="chart-badge">Suma cantidad producida</span>
+          </div>
+          <canvas id="chart-mensual" height="160"></canvas>
+        </div>
+        <div class="chart-card full" style="margin-top:14px">
+          <div class="chart-card-header">
+            <h4><i class="fa-solid fa-ranking-star"></i> Producción Total por Producto</h4>
+            <span class="chart-badge">Ordenado desc.</span>
+          </div>
+          <canvas id="chart-productos" height="190"></canvas>
+        </div>
+      </div>
+
+      <!-- TAB: CALIDAD -->
+      <div class="tab-content" id="tab-calidad">
+        <div class="charts-grid-2">
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <h4><i class="fa-solid fa-percent"></i> % Defectuoso Promedio por Producto</h4>
+              <span class="chart-badge">Rojo &gt; 4.2% · Ámbar &gt; 3.9%</span>
+            </div>
+            <canvas id="chart-defecto-prod" height="260"></canvas>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <h4><i class="fa-solid fa-triangle-exclamation"></i> Frecuencia de Defectos por Tipo</h4>
+              <span class="chart-badge">518 defectos totales</span>
+            </div>
+            <canvas id="chart-defecto-tipo" height="260"></canvas>
+          </div>
+        </div>
+        <div class="chart-card full" style="margin-top:14px">
+          <div class="chart-card-header">
+            <h4><i class="fa-solid fa-clock"></i> % Defectuoso por Turno</h4>
+            <span class="chart-badge">Mañana vs Tarde</span>
+          </div>
+          <canvas id="chart-turno" height="120"></canvas>
+        </div>
+      </div>
+
+      <!-- TAB: ATÍPICOS -->
+      <div class="tab-content" id="tab-atipicos">
+        <div class="atipicos-info-row">
+          <div class="atip-stat-card">
+            <div class="atip-stat-icon green"><i class="fa-solid fa-arrow-down"></i></div>
+            <div><p class="atip-label">Q1 (P25)</p><h3>0.99%</h3></div>
+          </div>
+          <div class="atip-stat-card">
+            <div class="atip-stat-icon teal"><i class="fa-solid fa-minus"></i></div>
+            <div><p class="atip-label">Mediana (P50)</p><h3>1.91%</h3></div>
+          </div>
+          <div class="atip-stat-card">
+            <div class="atip-stat-icon gold"><i class="fa-solid fa-arrow-up"></i></div>
+            <div><p class="atip-label">Q3 (P75)</p><h3>3.04%</h3></div>
+          </div>
+          <div class="atip-stat-card">
+            <div class="atip-stat-icon amber"><i class="fa-solid fa-ruler"></i></div>
+            <div><p class="atip-label">IQR</p><h3>2.05 pp</h3></div>
+          </div>
+          <div class="atip-stat-card danger">
+            <div class="atip-stat-icon red"><i class="fa-solid fa-exclamation"></i></div>
+            <div><p class="atip-label">Umbral atípico (Q3+1.5IQR)</p><h3>6.11%</h3></div>
+          </div>
+          <div class="atip-stat-card danger">
+            <div class="atip-stat-icon red"><i class="fa-solid fa-circle-exclamation"></i></div>
+            <div><p class="atip-label">Lotes atípicos</p><h3>49 / 300</h3></div>
+          </div>
+        </div>
+        <div class="charts-grid-2" style="margin-top:14px">
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <h4><i class="fa-solid fa-box-plot"></i> Boxplot: % Defectuoso por Línea</h4>
+              <span class="chart-badge">IQR · línea roja = umbral</span>
+            </div>
+            <canvas id="chart-boxplot" height="280"></canvas>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <h4><i class="fa-solid fa-chart-scatter"></i> Dispersión: Tiempo de Proceso vs % Defectuoso</h4>
+              <span class="chart-badge">r = −0.24 · rojo = atípico</span>
+            </div>
+            <canvas id="chart-scatter" height="280"></canvas>
+          </div>
+        </div>
+        <div class="chart-card full" style="margin-top:14px">
+          <div class="chart-card-header">
+            <h4><i class="fa-solid fa-list-ol"></i> Lotes Atípicos Detectados (% defectuoso &gt; 6.11%)</h4>
+            <span class="chart-badge" id="badge-atip-count">49 lotes</span>
+          </div>
+          <div id="tabla-atipicos-wrap"></div>
+        </div>
+      </div>
+
+      <!-- TAB: INVENTARIO -->
+      <div class="tab-content" id="tab-inventario">
+        <div class="chart-card full">
+          <div class="chart-card-header">
+            <h4><i class="fa-solid fa-warehouse"></i> Stock Disponible vs Stock Mínimo por Insumo</h4>
+            <span class="chart-badge">Rojo = stock crítico</span>
+          </div>
+          <canvas id="chart-stock" height="190"></canvas>
+        </div>
+        <div class="inventario-table-wrap" style="margin-top:14px">
+          <div class="chart-card-header" style="padding:16px 20px 12px">
+            <h4><i class="fa-solid fa-table"></i> Detalle de Inventario · 15 insumos</h4>
+            <span class="chart-badge">Cobertura = disponible / mínimo</span>
+          </div>
+          <table class="inv-table" id="tabla-stock"></table>
+        </div>
+      </div>
+
+      <!-- TAB: RESPONSABLES -->
+      <div class="tab-content" id="tab-responsable">
+        <div class="chart-card full">
+          <div class="chart-card-header">
+            <h4><i class="fa-solid fa-chart-bar"></i> Tasa de Aprobación vs % Defectuoso por Responsable</h4>
+            <span class="chart-badge">Doble eje Y</span>
+          </div>
+          <canvas id="chart-responsable" height="160"></canvas>
+        </div>
+        <div class="inventario-table-wrap" style="margin-top:14px">
+          <div class="chart-card-header" style="padding:16px 20px 12px">
+            <h4><i class="fa-solid fa-ranking-star"></i> Ranking de Desempeño por Responsable</h4>
+            <span class="chart-badge">5 responsables · 2025</span>
+          </div>
+          <table class="inv-table" id="tabla-responsable"></table>
+        </div>
+      </div>
+
+      <!-- TAB: DATOS EN VIVO -->
+      <div class="tab-content" id="tab-datos">
+        <div class="datos-grid">
+          <!-- Panel ingreso -->
+          <div class="chart-card datos-form-card">
+            <div class="chart-card-header">
+              <h4><i class="fa-solid fa-plus-circle"></i> Ingresar Nuevo Lote</h4>
+              <span class="chart-badge atipico-badge" id="badge-atipico"></span>
+            </div>
+            <div class="dato-form">
+              <div class="dato-field">
+                <label>Línea de producción</label>
+                <select id="nuevo-linea">
+                  <option>Bebidas</option><option>Harinas</option>
+                  <option>Lacteos</option><option>Snacks</option>
+                </select>
+              </div>
+              <div class="dato-field">
+                <label>Producto</label>
+                <select id="nuevo-producto">
+                  <option>Néctar de Maracuyá</option><option>Néctar de Mango</option>
+                  <option>Bebida de Maíz Morado</option><option>Yogurt Natural</option>
+                  <option>Harina de Quinua</option><option>Harina de Kiwicha</option>
+                  <option>Barra de Cereales</option><option>Chocolate de Cacao</option>
+                </select>
+              </div>
+              <div class="dato-field">
+                <label>Responsable</label>
+                <select id="nuevo-resp">
+                  <option>Ing. Torres</option><option>Ing. Quispe</option>
+                  <option>Tec. Flores</option><option>Tec. Mamani</option><option>Ing. Ramos</option>
+                </select>
+              </div>
+              <div class="dato-field">
+                <label>Turno</label>
+                <select id="nuevo-turno"><option>Manana</option><option>Tarde</option></select>
+              </div>
+              <div class="dato-field">
+                <label>Cantidad producida (uds)</label>
+                <input type="number" id="nuevo-qty" placeholder="ej: 350" min="1"/>
+              </div>
+              <div class="dato-field">
+                <label>Cantidad defectuosa (uds)</label>
+                <input type="number" id="nuevo-def" placeholder="ej: 5" min="0"/>
+              </div>
+              <div class="dato-field">
+                <label>Estado del lote</label>
+                <select id="nuevo-estado">
+                  <option>Aprobado</option><option>En revision</option><option>Rechazado</option>
+                </select>
+              </div>
+              <div class="dato-field dato-field-full">
+                <button class="btn-agregar" onclick="agregarDato()">
+                  <i class="fa-solid fa-plus"></i> Agregar Lote y Detectar Atípicos
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel estadístico en tiempo real -->
+          <div class="chart-card datos-stats-card">
+            <div class="chart-card-header">
+              <h4><i class="fa-solid fa-gauge-high"></i> Métricas en Tiempo Real</h4>
+              <span class="chart-badge">Se actualiza al agregar</span>
+            </div>
+            <div id="realtime-stats"></div>
+          </div>
+        </div>
+
+        <!-- Tabla de lotes en vivo -->
+        <div class="inventario-table-wrap" style="margin-top:14px">
+          <div class="chart-card-header" style="padding:14px 20px 10px; display:flex; justify-content:space-between; align-items:center;">
+            <h4><i class="fa-solid fa-table"></i> Registro de Lotes (últimos ingresos)</h4>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <span class="chart-badge" id="badge-total-tabla">300 lotes base</span>
+              <button class="btn-clear" onclick="limpiarAgregados()">
+                <i class="fa-solid fa-trash-can"></i> Limpiar ingresos
+              </button>
+            </div>
+          </div>
+          <div id="tabla-viva-wrap">
+            <table class="inv-table" id="tabla-viva"></table>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- STATUS ROW -->
+    <section class="status-row">
+      <div class="status-block">
+        <div class="status-header"><h4><i class="fa-solid fa-circle-check"></i> Estado del Sistema</h4></div>
+        <ul class="status-list">
+          <li><span class="dot green"></span> Módulo Producción <span class="st-val ok">Operativo</span></li>
+          <li><span class="dot green"></span> Módulo Inventario <span class="st-val ok">Operativo</span></li>
+          <li><span class="dot amber"></span> Módulo Calidad <span class="st-val warn">En revisión</span></li>
+          <li><span class="dot green"></span> Módulo Maquila <span class="st-val ok">Operativo</span></li>
+          <li><span class="dot green"></span> Base de Datos <span class="st-val ok">Conectada</span></li>
+        </ul>
+      </div>
+      <div class="status-block">
+        <div class="status-header"><h4><i class="fa-solid fa-clock-rotate-left"></i> Actividad Reciente</h4></div>
+        <ul class="activity-list">
+          <li><span class="act-dot prod"></span><div><p class="act-desc">Lote #300 — Harina de Kiwicha aprobado</p><p class="act-time">2025-12-09 · Ing. Quispe</p></div></li>
+          <li><span class="act-dot qual"></span><div><p class="act-desc">Lote #297 rechazado — 10.03% defectuoso</p><p class="act-time">2025-09-01 · Tec. Mamani</p></div></li>
+          <li><span class="act-dot inv"></span><div><p class="act-desc">Stock de Maíz morado cerca del mínimo</p><p class="act-time">Alerta automática · 357 kg / 80 min</p></div></li>
+          <li><span class="act-dot maq"></span><div><p class="act-desc">Lote #283 en revisión — Néctar de Mango</p><p class="act-time">2025-12-10 · Ing. Ramos</p></div></li>
+        </ul>
+      </div>
+      <div class="status-block">
+        <div class="status-header"><h4><i class="fa-solid fa-gauge-high"></i> Eficiencia Operativa</h4></div>
+        <div class="progress-list">
+          <div class="prog-item">
+            <div class="prog-top"><span>Línea Bebidas</span><span>75%</span></div>
+            <div class="prog-bar"><div class="prog-fill" style="width:75%; background:var(--green-mid)"></div></div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-top"><span>Línea Harinas</span><span>82%</span></div>
+            <div class="prog-bar"><div class="prog-fill" style="width:82%; background:var(--teal)"></div></div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-top"><span>Control de Calidad</span><span>69%</span></div>
+            <div class="prog-bar"><div class="prog-fill" style="width:69%; background:var(--gold)"></div></div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-top"><span>Maquila Externa</span><span>58%</span></div>
+            <div class="prog-bar"><div class="prog-fill" style="width:58%; background:var(--amber)"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="dash-footer">
+      <span>INDDA · UNALM © 2025</span>
+      <span>Sistema de Gestión Agroindustrial · SIG 2025-I</span>
+      <span>Última sincronización: <span id="last-sync"></span></span>
+    </footer>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
