@@ -343,6 +343,7 @@ document.querySelectorAll('.btn-ph-primary, .btn-ph-secondary').forEach(btn => {
   });
 });
 
+
 /* ──────────────────────────────────────────
    POWER BI INTEGRATION
 ────────────────────────────────────────── */
@@ -352,7 +353,6 @@ function loadPBI() {
   const overlay = document.getElementById('pbi-overlay');
   const frame   = document.getElementById('pbi-frame');
 
-  // Show loading state
   const btn = overlay.querySelector('.btn-load-pbi');
   btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Cargando...';
   btn.disabled = true;
@@ -361,45 +361,50 @@ function loadPBI() {
   frame.style.display = 'block';
 
   frame.onload = () => {
-    overlay.style.transition = 'opacity 0.4s ease';
+    overlay.style.transition = 'opacity 0.5s ease';
     overlay.style.opacity = '0';
-    setTimeout(() => { overlay.style.display = 'none'; }, 400);
+    setTimeout(() => { overlay.style.display = 'none'; }, 500);
   };
+
+  // Fallback si no carga en 8 segundos
+  setTimeout(() => {
+    if (overlay.style.display !== 'none') {
+      btn.innerHTML = '<i class="fa-solid fa-arrow-up-right-from-square"></i> Abrir en nueva pestaña';
+      btn.disabled = false;
+      btn.onclick = () => window.open(PBI_URL, '_blank');
+    }
+  }, 8000);
 }
 
 function setPBIPage(el) {
-  document.querySelectorAll('.pbi-page').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.pbi-tab').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
 }
 
 /* ──────────────────────────────────────────
-   KPI COUNTER — soporte para decimal y prefix
+   KPI COUNTER — con soporte decimal y prefix
 ────────────────────────────────────────── */
 function startCounters() {
   const kpiValues = document.querySelectorAll('.kpi-value[data-target]');
   kpiValues.forEach(el => {
-    const target   = parseInt(el.dataset.target, 10);
-    const card     = el.closest('.kpi-card');
-    const delay    = parseInt(card?.dataset.delay || 0, 10);
+    const target    = parseInt(el.dataset.target, 10);
+    const card      = el.closest('.kpi-card');
+    const delay     = parseInt(card?.dataset.delay || 0, 10);
     const isDecimal = el.dataset.decimal === 'true';
-    const prefix   = el.dataset.prefix || '';
-    const duration = 1200;
-    const steps    = 60;
-    const interval = duration / steps;
+    const prefix    = el.dataset.prefix || '';
+    const duration  = 1200;
+    const steps     = 60;
+    const interval  = duration / steps;
 
     setTimeout(() => {
       let current = 0;
       const step  = target / steps;
       const timer = setInterval(() => {
         current += step;
-        if (current >= target) {
-          current = target;
-          clearInterval(timer);
-        }
-        const display = isDecimal
+        if (current >= target) { current = target; clearInterval(timer); }
+        el.textContent = isDecimal
           ? (Math.floor(current) / 100).toFixed(2) + '%'
           : prefix + Math.floor(current).toLocaleString('es-PE');
-        el.textContent = display;
       }, interval);
     }, delay);
   });
