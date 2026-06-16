@@ -9,20 +9,20 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
 </head>
 <body>
- 
+
   <!-- ══════════════════════════════════════════════
        LOGIN SCREEN
   ══════════════════════════════════════════════ -->
   <div id="login-screen" class="login-screen">
- 
+
     <!-- Decorative background pattern -->
     <div class="login-bg">
       <div class="bg-mesh"></div>
       <div class="bg-grid"></div>
     </div>
- 
+
     <div class="login-wrapper">
- 
+
       <!-- Left panel: branding -->
       <div class="login-left">
         <div class="brand-block">
@@ -48,7 +48,7 @@
           Universidad Nacional Agraria La Molina
         </div>
       </div>
- 
+
       <!-- Right panel: form -->
       <div class="login-right">
         <div class="login-card">
@@ -57,7 +57,7 @@
             <h2 class="login-title">Sistema de Gestión</h2>
             <p class="login-subtitle">Ingrese sus credenciales institucionales para continuar</p>
           </div>
- 
+
           <form id="login-form" class="login-form" onsubmit="return false;">
             <div class="form-group">
               <label for="username">
@@ -71,7 +71,7 @@
                 autocomplete="username"
               />
             </div>
- 
+
             <div class="form-group">
               <label for="password">
                 <i class="fa-regular fa-lock"></i>
@@ -89,18 +89,18 @@
                 </button>
               </div>
             </div>
- 
+
             <div id="login-error" class="login-error hidden">
               <i class="fa-solid fa-circle-exclamation"></i>
               Credenciales incorrectas. Intente nuevamente.
             </div>
- 
+
             <button type="submit" class="btn-login" id="btn-login" onclick="attemptLogin()">
               <span class="btn-text">Ingresar al Sistema</span>
               <i class="fa-solid fa-arrow-right-to-bracket"></i>
             </button>
           </form>
- 
+
           <div class="login-note">
             <i class="fa-solid fa-shield-halved"></i>
             Acceso restringido — Solo personal autorizado
@@ -109,16 +109,16 @@
       </div>
     </div>
   </div>
- 
- 
+
+
   <!-- ══════════════════════════════════════════════
        DASHBOARD SCREEN
   ══════════════════════════════════════════════ -->
   <div id="dashboard-screen" class="dashboard-screen hidden">
- 
+
     <!-- ── SIDEBAR ── -->
     <aside class="sidebar" id="sidebar">
- 
+
       <div class="sidebar-brand">
         <div class="sb-logo-icon">
           <i class="fa-solid fa-seedling"></i>
@@ -131,7 +131,7 @@
           <i class="fa-solid fa-bars"></i>
         </button>
       </div>
- 
+
       <nav class="sidebar-nav">
         <div class="nav-section-label">Principal</div>
         <a href="#" class="nav-item active" onclick="setActive(this)">
@@ -146,7 +146,7 @@
           <i class="fa-solid fa-boxes-stacked"></i>
           <span>Inventario</span>
         </a>
- 
+
         <div class="nav-section-label">Operaciones</div>
         <a href="#" class="nav-item" onclick="setActive(this)">
           <i class="fa-solid fa-flask-vial"></i>
@@ -160,7 +160,7 @@
           <i class="fa-solid fa-clipboard-list"></i>
           <span>Órdenes</span>
         </a>
- 
+
         <div class="nav-section-label">Administración</div>
         <a href="#" class="nav-item" onclick="setActive(this)">
           <i class="fa-solid fa-users"></i>
@@ -175,7 +175,7 @@
           <span>Configuración</span>
         </a>
       </nav>
- 
+
       <div class="sidebar-user">
         <div class="su-avatar">A</div>
         <div class="su-info">
@@ -187,10 +187,10 @@
         </button>
       </div>
     </aside>
- 
+
     <!-- ── MAIN CONTENT ── -->
     <main class="main-content" id="main-content">
- 
+
       <!-- Top bar -->
       <header class="topbar">
         <div class="topbar-left">
@@ -209,81 +209,94 @@
           <div class="topbar-avatar">A</div>
         </div>
       </header>
- 
-      <!-- ── KPI CARDS ── -->
+
+      <!-- ── KPI CARDS — datos reales BD INDDA v3 ── -->
       <section class="kpi-section">
         <div class="kpi-card" data-delay="0">
           <div class="kpi-icon kpi-green">
             <i class="fa-solid fa-industry"></i>
           </div>
           <div class="kpi-body">
-            <p class="kpi-label">Órdenes de Producción</p>
-            <h3 class="kpi-value" data-target="148">0</h3>
-            <span class="kpi-badge up"><i class="fa-solid fa-arrow-trend-up"></i> +12% vs. mes anterior</span>
+            <p class="kpi-label">Lotes Producidos</p>
+            <h3 class="kpi-value" data-target="300">0</h3>
+            <span class="kpi-badge up"><i class="fa-solid fa-arrow-trend-up"></i> 75% aprobados</span>
           </div>
         </div>
- 
+
         <div class="kpi-card" data-delay="100">
           <div class="kpi-icon kpi-gold">
-            <i class="fa-solid fa-boxes-stacked"></i>
+            <i class="fa-solid fa-circle-dollar-to-slot"></i>
           </div>
           <div class="kpi-body">
-            <p class="kpi-label">Ítems en Inventario</p>
-            <h3 class="kpi-value" data-target="3204">0</h3>
-            <span class="kpi-badge up"><i class="fa-solid fa-arrow-trend-up"></i> +5% vs. mes anterior</span>
+            <p class="kpi-label">Pérdida por Defectos</p>
+            <h3 class="kpi-value" data-target="5890" data-prefix="S/ ">0</h3>
+            <span class="kpi-badge down"><i class="fa-solid fa-arrow-trend-down"></i> merma total en soles</span>
           </div>
         </div>
- 
+
         <div class="kpi-card" data-delay="200">
           <div class="kpi-icon kpi-teal">
             <i class="fa-solid fa-flask-vial"></i>
           </div>
           <div class="kpi-body">
-            <p class="kpi-label">Lotes en Control de Calidad</p>
-            <h3 class="kpi-value" data-target="27">0</h3>
-            <span class="kpi-badge down"><i class="fa-solid fa-arrow-trend-down"></i> -3% vs. mes anterior</span>
+            <p class="kpi-label">% Defectuoso Promedio</p>
+            <h3 class="kpi-value" data-target="375" data-decimal="true">0</h3>
+            <span class="kpi-badge down"><i class="fa-solid fa-arrow-trend-down"></i> índice de calidad</span>
           </div>
         </div>
- 
+
         <div class="kpi-card" data-delay="300">
           <div class="kpi-icon kpi-amber">
-            <i class="fa-solid fa-truck"></i>
+            <i class="fa-solid fa-triangle-exclamation"></i>
           </div>
           <div class="kpi-body">
-            <p class="kpi-label">Servicios de Maquila</p>
-            <h3 class="kpi-value" data-target="61">0</h3>
-            <span class="kpi-badge up"><i class="fa-solid fa-arrow-trend-up"></i> +8% vs. mes anterior</span>
+            <p class="kpi-label">Lotes Rechazados</p>
+            <h3 class="kpi-value" data-target="33">0</h3>
+            <span class="kpi-badge down"><i class="fa-solid fa-arrow-trend-down"></i> 11% del total</span>
           </div>
         </div>
       </section>
- 
-      <!-- ── PLACEHOLDER NOTICE ── -->
-      <section class="placeholder-section">
-        <div class="placeholder-card">
-          <div class="ph-icon">
-            <i class="fa-solid fa-database"></i>
+
+      <!-- ── POWER BI DASHBOARD ── -->
+      <section class="powerbi-section">
+        <div class="powerbi-header">
+          <div class="powerbi-header-left">
+            <i class="fa-solid fa-chart-column"></i>
+            <div>
+              <h3>Dashboard Interactivo — Power BI</h3>
+              <p>Producción · Calidad · Inventario · BD INDDA UNALM 2025</p>
+            </div>
           </div>
-          <div class="ph-text">
-            <h3>Módulos de Datos Listos</h3>
-            <p>
-              La tabla de producción y los gráficos visuales se generarán cuando conectes
-              tu base de datos. Esta sección mostrará: gráfico de producción mensual,
-              tabla de lotes activos, análisis de calidad por línea y stock de inventario.
-            </p>
+          <a href="https://app.powerbi.com/links/aYmSMuEUfY?ctid=d817549d-db34-487b-9c4e-6bb9fb2f7691&pbi_source=linkShare"
+             target="_blank" class="btn-powerbi">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            Abrir en Power BI
+          </a>
+        </div>
+        <div class="powerbi-embed-wrap">
+          <div class="powerbi-pages">
+            <button class="pbi-page active" onclick="setPBIPage(this)"><i class="fa-solid fa-chart-pie"></i> Resumen General</button>
+            <button class="pbi-page" onclick="setPBIPage(this)"><i class="fa-solid fa-industry"></i> Producción</button>
+            <button class="pbi-page" onclick="setPBIPage(this)"><i class="fa-solid fa-flask-vial"></i> Calidad</button>
+            <button class="pbi-page" onclick="setPBIPage(this)"><i class="fa-solid fa-boxes-stacked"></i> Inventario</button>
           </div>
-          <div class="ph-actions">
-            <button class="btn-ph-primary">
-              <i class="fa-solid fa-plug-circle-bolt"></i>
-              Conectar base de datos
-            </button>
-            <button class="btn-ph-secondary">
-              <i class="fa-solid fa-file-import"></i>
-              Cargar datos de muestra
-            </button>
+          <div class="powerbi-frame-container">
+            <div class="powerbi-overlay" id="pbi-overlay">
+              <div class="pbi-overlay-content">
+                <div class="pbi-logo"><i class="fa-solid fa-chart-column"></i></div>
+                <h3>Dashboard INDDA UNALM</h3>
+                <p>Visualización interactiva de producción, calidad e inventario</p>
+                <button class="btn-load-pbi" onclick="loadPBI()">
+                  <i class="fa-solid fa-play"></i> Cargar Dashboard
+                </button>
+              </div>
+            </div>
+            <iframe id="pbi-frame" src="" frameborder="0" allowFullScreen="true"
+              style="display:none; width:100%; height:100%; border:none;"></iframe>
           </div>
         </div>
       </section>
- 
+
       <!-- ── QUICK STATUS ROW ── -->
       <section class="status-row">
         <div class="status-block">
@@ -298,7 +311,7 @@
             <li><span class="dot green"></span> Base de Datos <span class="st-val ok">Conectada</span></li>
           </ul>
         </div>
- 
+
         <div class="status-block">
           <div class="status-header">
             <h4><i class="fa-solid fa-clock-rotate-left"></i> Actividad Reciente</h4>
@@ -334,7 +347,7 @@
             </li>
           </ul>
         </div>
- 
+
         <div class="status-block">
           <div class="status-header">
             <h4><i class="fa-solid fa-gauge-high"></i> Eficiencia Operativa</h4>
@@ -371,17 +384,17 @@
           </div>
         </div>
       </section>
- 
+
       <!-- Footer -->
       <footer class="dash-footer">
         <span>INDDA · UNALM © 2026</span>
         <span>Sistema de Gestión Agroindustrial v2.0</span>
         <span>Última sincronización: <span id="last-sync"></span></span>
       </footer>
- 
+
     </main>
   </div>
- 
+
   <script src="script.js"></script>
 </body>
 </html>
