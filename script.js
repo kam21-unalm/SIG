@@ -342,3 +342,65 @@ document.querySelectorAll('.btn-ph-primary, .btn-ph-secondary').forEach(btn => {
     }, 2000);
   });
 });
+
+/* ──────────────────────────────────────────
+   POWER BI INTEGRATION
+────────────────────────────────────────── */
+const PBI_URL = 'https://app.powerbi.com/links/aYmSMuEUfY?ctid=d817549d-db34-487b-9c4e-6bb9fb2f7691&pbi_source=linkShare';
+
+function loadPBI() {
+  const overlay = document.getElementById('pbi-overlay');
+  const frame   = document.getElementById('pbi-frame');
+
+  // Show loading state
+  const btn = overlay.querySelector('.btn-load-pbi');
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Cargando...';
+  btn.disabled = true;
+
+  frame.src = PBI_URL;
+  frame.style.display = 'block';
+
+  frame.onload = () => {
+    overlay.style.transition = 'opacity 0.4s ease';
+    overlay.style.opacity = '0';
+    setTimeout(() => { overlay.style.display = 'none'; }, 400);
+  };
+}
+
+function setPBIPage(el) {
+  document.querySelectorAll('.pbi-page').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+/* ──────────────────────────────────────────
+   KPI COUNTER — soporte para decimal y prefix
+────────────────────────────────────────── */
+function startCounters() {
+  const kpiValues = document.querySelectorAll('.kpi-value[data-target]');
+  kpiValues.forEach(el => {
+    const target   = parseInt(el.dataset.target, 10);
+    const card     = el.closest('.kpi-card');
+    const delay    = parseInt(card?.dataset.delay || 0, 10);
+    const isDecimal = el.dataset.decimal === 'true';
+    const prefix   = el.dataset.prefix || '';
+    const duration = 1200;
+    const steps    = 60;
+    const interval = duration / steps;
+
+    setTimeout(() => {
+      let current = 0;
+      const step  = target / steps;
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        const display = isDecimal
+          ? (Math.floor(current) / 100).toFixed(2) + '%'
+          : prefix + Math.floor(current).toLocaleString('es-PE');
+        el.textContent = display;
+      }, interval);
+    }, delay);
+  });
+}
